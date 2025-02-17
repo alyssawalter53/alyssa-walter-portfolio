@@ -1,0 +1,30 @@
+[
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "My name is Alyssa Walter and I am a senior majoring in Marine Science and minoring in Statistics at CSU Monterey Bay. I am currently serving as the AS College of Science Senator, and am a NOAA Hollings, Sally Casanova, and UROC Scholar. My research focuses on elasmobranch movement ecology and reproduction, with an emphasis on enhancing our understanding of the ocean’s top predators to support conservation efforts for species of ecological and economic importance. I am looking forward to using the skills, networks, and experience I have gained during my time as an undergraduate to aid in my pursuit of a PhD in Marine Ecology and Fisheries Management."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Alyssa Walter",
+    "section": "",
+    "text": "Alyssa Walter is a senior at California State University, Monterey Bay."
+  },
+  {
+    "objectID": "index.html#education",
+    "href": "index.html#education",
+    "title": "Alyssa Walter",
+    "section": "Education",
+    "text": "Education\nCalifornia State University, Monterey Bay | Seaside, CA\nB.S. in Marine Science\nMinor in Statistics"
+  },
+  {
+    "objectID": "index.html#experience",
+    "href": "index.html#experience",
+    "title": "Alyssa Walter",
+    "section": "Experience",
+    "text": "Experience\nCalifornia State University Monterey Bay | Undergraduate Researcher | November 2022-Present\nChannel Islands National Marine Sanctuary | NOAA Hollings Research Intern | May 2024-August 2024\nChannel Islands National Marine Sanctuary | CSU Council on Ocean Affairs, Science & Technology Research Intern | June 2023-August 2023\nThis is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites."
+  }
+]

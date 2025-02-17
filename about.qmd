@@ -4,6 +4,3 @@ title: "About"
 
 My name is Alyssa Walter and I am a senior majoring in Marine Science and minoring in Statistics at CSU Monterey Bay. I am currently serving as the AS College of Science Senator, and am a NOAA Hollings, Sally Casanova, and UROC Scholar. My research focuses on elasmobranch movement ecology and reproduction, with an emphasis on enhancing our understanding of the ocean's top predators to support conservation efforts for species of ecological and economic importance. I am looking forward to using the skills, networks, and experience I have gained during my time as an undergraduate to aid in my pursuit of a PhD in Marine Ecology and Fisheries Management.
 
-```{r}
-1 + 1
-```
