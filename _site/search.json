@@ -9,8 +9,22 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "alyssa-walter-portfolio",
+    "title": "Alyssa Walter",
     "section": "",
-    "text": "This is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites.\n\n1 + 1\n\n[1] 2"
+    "text": "Alyssa Walter is a senior at California State University, Monterey Bay."
+  },
+  {
+    "objectID": "index.html#education",
+    "href": "index.html#education",
+    "title": "Alyssa Walter",
+    "section": "Education",
+    "text": "Education\nCalifornia State University, Monterey Bay | Seaside, CA\nB.S. in Marine Science\nMinor in Statistics"
+  },
+  {
+    "objectID": "index.html#experience",
+    "href": "index.html#experience",
+    "title": "Alyssa Walter",
+    "section": "Experience",
+    "text": "Experience\nCalifornia State University Monterey Bay | Undergraduate Researcher | November 2022-Present\nChannel Islands National Marine Sanctuary | NOAA Hollings Research Intern | May 2024-August 2024\nChannel Islands National Marine Sanctuary | CSU Council on Ocean Affairs, Science & Technology Research Intern | June 2023-August 2023\nThis is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites.\n\n1 + 1\n\n[1] 2"
   }
 ]
