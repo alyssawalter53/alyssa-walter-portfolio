@@ -1,13 +1,16 @@
 project:
   type: website
+  output-dir: docs
+  theme: darkly
 
 website:
-  title: "alyssa-walter-portfolio"
+  title: "Alyssa Walter's ePortfolio"
   navbar:
     left:
       - href: index.qmd
-        text: Home
-      - about.qmd
+        text: "Home"
+      - href: about.qmd
+        text: "About Me"
 
 format:
   html:
