@@ -1,7 +1,6 @@
 project:
   type: website
   output-dir: docs
-  theme: darkly
 
 website:
   title: "Alyssa Walter's ePortfolio"
@@ -11,6 +10,8 @@ website:
         text: "Home"
       - href: about.qmd
         text: "About Me"
+      - href: page_2_portfolio.qmd
+        text: "Research Project Process"
 
 format:
   html:

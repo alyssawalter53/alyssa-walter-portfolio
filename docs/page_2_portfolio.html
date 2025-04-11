@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Alyssa Walter’s ePortfolio - About</title>
+<title>Alyssa Walter’s ePortfolio - Project Process</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -93,11 +93,11 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./about.html" aria-current="page"> 
+    <a class="nav-link" href="./about.html"> 
 <span class="menu-text">About Me</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./page_2_portfolio.html"> 
+    <a class="nav-link active" href="./page_2_portfolio.html" aria-current="page"> 
 <span class="menu-text">Research Project Process</span></a>
   </li>  
 </ul>
@@ -112,14 +112,22 @@ ul.task-list li input[type="checkbox"] {
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#data-description" id="toc-data-description" class="nav-link active" data-scroll-target="#data-description">Data Description</a></li>
+  <li><a href="#data-visualization" id="toc-data-visualization" class="nav-link" data-scroll-target="#data-visualization">Data Visualization</a></li>
+  <li><a href="#data-cleaning" id="toc-data-cleaning" class="nav-link" data-scroll-target="#data-cleaning">Data Cleaning</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">About</h1>
+<h1 class="title">Project Process</h1>
 </div>
 
 
@@ -136,9 +144,56 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>My name is Alyssa Walter and I am a senior majoring in Marine Science and minoring in Statistics at CSU Monterey Bay. I am currently serving as the AS College of Science Senator, and am a NOAA Hollings, Sally Casanova, and UROC Scholar. My research focuses on elasmobranch movement ecology and reproduction, with an emphasis on enhancing our understanding of the ocean’s top predators to support conservation efforts for species of ecological and economic importance. I am looking forward to using the skills, networks, and experience I have gained during my time as an undergraduate to aid in my pursuit of a PhD in Marine Ecology and Fisheries Management.</p>
+<section id="data-description" class="level1">
+<h1>Data Description</h1>
+<p><strong>Identify your data source.</strong><br>
+My data comes from the NOAA Fisheries Commercial Landings Database, which tracks reported commercial landings of fishes. I utilized their website to select data for 12 large pelagic shark species landed across the U.S.</p>
+<p>https://www.fisheries.noaa.gov/foss/f?p=215:200:1455472432287:::::</p>
+<p><strong>Describe your data, including variables and data types.</strong><br>
+My data contains commercial fisheries landings from 1915 to 2023, and provides insight into trends in shark landings by state. The dataset includes the following variables: - Year, year of the recorded landings. -State, U.S. state - NMFS Name, National Marine Fisheries Service common name of each species - Pounds and Metric Tons, weight of sharks landed - Dollars, market value of the landed sharks - Confidentiality, whether or not the data is confidential - Collection, whether it was commercially or recreational caught - Scientific Name, scientific name of each species - Tsn, Taxonomic Serial Numbers are a numeric code for the species - Source,original source of the data</p>
+<p><strong>Identify the research questions you want to answer.</strong></p>
+<ol type="1">
+<li><p>Which shark species have the highest commercial landing weights (weight of all sharks cought) over time?</p></li>
+<li><p>How do the prominent species landed vary by state?</p></li>
+<li><p>Are there trends in the value of shark landings (in dollars) over time, for the shark species that can legally be kept and sold??</p></li>
+<li><p>What data source (fisheries management organization) had the highest average shark landings in the last 5 years?</p></li>
+</ol>
+</section>
+<section id="data-visualization" class="level1">
+<h1>Data Visualization</h1>
+<p><strong>What do you want your final visualizations to look like?</strong><br>
+I want my final visualizations to clearly display trends in shark landings over time, differences among the US states, and the range of relationships between landing weight and commercial value for each species. I plan to create a line graph showing changes in landings (in pounds or metric tons) for all shark species over time. I will also create a bar chart that compares the total market value of shark landings by state. I will use a scatterplot to examine the relationship between the weight of landings and their dollar value.</p>
+<p><strong>What do you want to highlight on your final visualizations in order to answer your research questions? How do you plan to do that?</strong><br>
+I want to highlight the top shark species caught by weight and commercial value. I will use color coding to distinguish species and states and apply faceting to break up graphs by category where needed, inorder to include more varibles on each graph.</p>
+<p><strong>What is missing from your data or would need to change in your data to create these visualizations?</strong><br>
+Some aspects of the data may need to be adjusted before I can create these visualizations. I will need to group the data by species, year, and state in order to calculate some summary statistics. I will also need to check whether the State and NMFS Name variables are properly formatted for use as categorical variables.</p>
+</section>
+<section id="data-cleaning" class="level1">
+<h1>Data Cleaning</h1>
+<blockquote class="blockquote">
+<p><em>The answer to at least three of these questions should be “YES” for the data to meet the necessary standards to demonstrate your cleaning.</em></p>
+</blockquote>
+<p><strong>Do you need to reformat any variables into different types (e.g., factors, time, dates, strings)? Or remove information from variable values?</strong><br>
+Yes: I’ll convert Year to a date type, and State, NMFS Name, and Scientific Name into factors for plotting.</p>
+<p><strong>Do you need to deal with any missing data, especially missing data coded other than NA?</strong><br>
+Yes: There will be many blank cells in the value column, because some of these species are illegal to keep, and therefore have no true market value.</p>
+<p><strong>Do you need to filter your data? How?</strong><br>
+Yes: I will filter out uneccessary cells such as collection and tsn.</p>
+<p><strong>Do you need to create any new variables? What variables? How?</strong></p>
+<p>Yes: I may create a variable for “Region” by grouping States together.</p>
+<p><strong>Do you need to add new data (join) to your data? What data? How?</strong></p>
+<p>No: I should not have to perform any joins unless I decide to add the regions by joining another dataset.</p>
+<p><strong>Are there any variables you can exclude from your data?</strong></p>
+<p>Yes: Variables like Tsn, and Collection are not relevant to my project.</p>
+<p><strong>Do you need to pivot your data in any way? Why? How?</strong><br>
+Yes: I may pivot my data to combine species across years or states.</p>
+<p><strong>Do you need to summarize any of the variables? Which ones? How?</strong></p>
+<p>Yes: I plan to summarize total landings and total dollar value by species, state, and year using group_by and summarize.</p>
+<p><strong>What other aspects of your data need to be “fixed” in order to make your data visualizations?</strong><br>
+I may need to standardize state names and abbreviations, and handle zero values in landings and value.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
