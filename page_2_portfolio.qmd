@@ -1,6 +1,6 @@
 ---
 title: "Project Process"
-
+echo: false
 ---
 
 # Data Description
@@ -84,3 +84,163 @@ Yes: I plan to summarize total landings and total dollar value by species, state
 
 **What other aspects of your data need to be “fixed” in order to make your data visualizations?**  
 I may need to standardize state names and abbreviations, and handle zero values in landings and value.
+
+```{r packages}
+library(tidyverse)
+library(janitor)
+```
+
+
+```{r load_and_explore_data}
+landings<-read.csv("data/FOSS_landings-2.csv",  skip = 1) #skip a row to make column names
+landings<-clean_names(landings) #cleaning variable names
+summary(landings) #checking variable types
+
+```
+
+```{r data_cleaning}
+#transform the data to the correct variable types
+landings_clean <- landings %>%
+  mutate(
+    year = as.numeric(year),
+    pounds = parse_number(pounds),
+    metric_tons = parse_number(metric_tons), #parse number removes commas and saves a numeric variable
+    dollars = parse_number(dollars),
+    state = as.factor(state), #saving as factor for grouping and categorical visualizations later on
+    nmfs_name = as.factor(nmfs_name),
+    scientific_name = as.factor(scientific_name),
+    confidentiality = as.character(confidentiality),
+    source = as.factor(source))
+    
+
+#remove rows I will not be using
+landings_filtered <- landings_clean %>%
+  filter(confidentiality != "Confidential")%>% #removing all rows that are confidential, because there is no data
+  select(-tsn, -collection, -confidentiality)
+  
+
+#make sure that 0s are not counted as NAs, because there may be categories where $ needs to be $0, and we do nnot want to accidentally filter out meaningful data
+landings_filtered <- landings_filtered %>%
+  mutate(
+    dollars = ifelse(dollars == 0, NA, dollars),
+    pounds = ifelse(pounds == 0, NA, pounds),
+    metric_tons = ifelse(metric_tons == 0, NA, metric_tons)
+  )
+
+
+# save to the data folder
+write.csv(landings_filtered, file.path("data", "landings_filtered.csv"))
+```
+
+```{r create_landings_datasets}
+
+# make a dataframe of landings by year and state, and species
+landings_state1 <- landings_filtered %>%
+  group_by(year, state, nmfs_name) %>%
+  summarize(
+    total_pounds = sum(pounds, na.rm = TRUE), #create total pounds of sharks landed per year, state, and species
+    total_dollars = sum(dollars, na.rm = TRUE),  #create total dollars of sharks landed per year, state, and species
+    .groups = "drop"
+  )
+
+# specifying which states belong to each region (as defined by NOAA), and adding it as a column
+landings_state <- landings_state1 %>%
+  mutate(region = case_when(
+    state %in% c("MAINE", "NEW HAMPSHIRE", "VERMONT", "MASSACHUSETTS", "RHODE ISLAND", "CONNECTICUT") ~ "New England",
+    state %in% c("DELAWARE", "MARYLAND", "VIRGINIA", "WEST VIRGINIA") ~ "Middle Atlantic",
+    state %in% c("NORTH CAROLINA", "SOUTH CAROLINA", "GEORGIA", "FLORIDA") ~ "South Atlantic",
+    state %in% c("TEXAS", "LOUISIANA", "MISSISSIPPI", "ALABAMA") ~ "Gulf",
+    state %in% c("MICHIGAN", "OHIO", "INDIANA", "ILLINOIS", "WISCONSIN", "MINNESOTA", "NEW YORK") ~ "Great Lakes",
+    state == "HAWAII" ~ "Hawaii",
+    state %in% c("CALIFORNIA", "OREGON", "WASHINGTON") ~ "Pacific Coast",
+    state %in% c("AMERICAN SAMOA", "GUAM", "NORTHERN MARIANA ISLANDS", "PACIFIC ISLANDS") ~ "Pacific Island Regions",
+    state == "ALASKA" ~ "Alaska",
+    state == "NEW JERSEY" ~ "Middle Atlantic",   
+    state == "FLORIDA-EAST" ~ "South Atlantic",  
+    state == "FLORIDA-WEST" ~ "South Atlantic", 
+    state == "PROCESS AT SEA" ~ "PROCESS AT SEA",       
+    TRUE ~ "Other"  # a default for any states not matching
+  ))
+
+# save to the data folder
+write.csv(landings_state, file.path("data", "landings_state.csv"))
+
+
+# make a dataframe of total landings by year and state
+total_landings_year <- landings_state %>%
+  group_by(year) %>%
+  summarize(total_pounds = sum(total_pounds, na.rm = TRUE), 
+            total_dollars = sum(total_dollars, na.rm = TRUE))
+
+# save to the data folder
+write.csv(total_landings_year, file.path("data", "total_landings_year.csv"))
+```
+
+> I used help from AI (ChatGPT) to create the regions dataframe, and to make sure the tideous process of spelling all state names and regions was done correctly.
+
+```{r wide_data_format}
+#in case I want to run any statistical analysis on the data, a wide formatted dataset may be useful
+wide_landings_state <- landings_state %>%
+  group_by(year, state, nmfs_name) %>% #group by year, state, and species
+  summarise(
+    total_pounds = sum(total_pounds, na.rm = TRUE),
+    total_dollars = sum(total_dollars, na.rm = TRUE),
+    .groups = "drop"
+  ) %>%
+  pivot_wider(
+    names_from = nmfs_name,
+    values_from = c(total_pounds, total_dollars)
+  )
+
+# save to the data folder
+write.csv(wide_landings_state, file.path("data", "wide_landings_state.csv"))
+```
+
+# Data Visualizations
+
+```{r first_plot_draft}
+# line plot of total commercial shark landings and their value over time
+total_landings_year %>%
+  ggplot() +
+  geom_line(aes(x = year, y = total_pounds), color = "steelblue") +  # plot total pounds on the y axis and year on the x axis
+  geom_line(aes(x = year, y = total_dollars ), color = "darkgreen") +   # plot second line with total dollars on the y axis and year on the x axis
+  scale_x_continuous(
+    breaks = seq(min(total_landings_year$year), max(total_landings_year$year), by = 10),  # set x axis breaks by 10 year increments
+    labels = scales::comma_format()  
+  ) +
+  scale_y_continuous(
+    name = "Total Pounds")  #add second y axis label +
+  labs(
+    title = "Total US Commercial Shark Landings Over Time",  # plot title
+    x = "Year",  # x-axis label
+    y = "Total Pounds",  # primary y-axis label
+    caption = "Source: NOAA Fisheries landings data"  # data source caption
+  ) +
+  theme_minimal()  # use minimal theme for cleaner look
+
+# alternative version with formatted y-axis and more y-axis breaks
+total_landings_year %>%
+  ggplot() +
+  geom_line(aes(x = year, y = total_pounds), color = "steelblue") + # plot total pounds on the y axis and year on the x axis
+  geom_line(aes(x = year, y = total_dollars), color = "darkgreen") +  # plot second line with total dollars on the y axis and year on the x axis
+  scale_x_continuous(
+    breaks = seq(min(total_landings_year$year), max(total_landings_year$year), by = 10)) +  # set x axis breaks by 10 year increments
+ scale_y_continuous(
+    name = "Total Pounds",  
+    breaks = seq(0, max(total_landings_year$total_pounds), by = 10000000),  # set y axis breaks every 10 million pounds
+    labels = function(x) format(x, big.mark = ",", scientific = FALSE),  # add commas to y axis labels 
+    sec.axis = sec_axis(~ ., name = "Total Dollars",   #add second y axis label 
+                        labels = function(x) paste0("$", format(x, big.mark = ",", scientific = FALSE)))  # add commas and $ to y axis labels 
+  ) +
+  labs(
+    title = "Total US Commercial Shark Landings Over Time",  # title the plot
+    x = "Year",  # x axis label
+    y = "Total Pounds",  # y axis label
+    caption = "Source: NOAA Fisheries landings data") +  # always cite your data!
+  theme_minimal()  # a clean plot theme that I'll probably change later
+
+
+```
+
+
+
