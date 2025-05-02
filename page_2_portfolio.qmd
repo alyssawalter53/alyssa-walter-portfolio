@@ -92,7 +92,7 @@ library(janitor)
 ```
 
 
-```{r load_and_explore_data, message=FALSE, warning=FALSE}
+```{r load_and_explore_data, include=FALSE}
 landings<-read.csv("data/FOSS_landings-2.csv",  skip = 1) #skip a row to make column names
 landings<-clean_names(landings) #cleaning variable names
 summary(landings) #checking variable types
