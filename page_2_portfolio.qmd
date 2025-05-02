@@ -86,7 +86,7 @@ Yes: I plan to summarize total landings and total dollar value by species, state
 **What other aspects of your data need to be “fixed” in order to make your data visualizations?**  
 I may need to standardize state names and abbreviations, and handle zero values in landings and value.
 
-```{r packages}
+```{r packages, include=FALSE}
 library(tidyverse)
 library(janitor)
 ```
