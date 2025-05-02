@@ -1,6 +1,7 @@
 ---
 title: "Project Process"
-echo: false
+echo: FALSE
+messages: FALSE
 ---
 
 # Data Description
@@ -91,7 +92,7 @@ library(janitor)
 ```
 
 
-```{r load_and_explore_data}
+```{r load_and_explore_data, message=FALSE, warning=FALSE}
 landings<-read.csv("data/FOSS_landings-2.csv",  skip = 1) #skip a row to make column names
 landings<-clean_names(landings) #cleaning variable names
 summary(landings) #checking variable types
@@ -200,25 +201,6 @@ write.csv(wide_landings_state, file.path("data", "wide_landings_state.csv"))
 
 ```{r first_plot_draft}
 # line plot of total commercial shark landings and their value over time
-total_landings_year %>%
-  ggplot() +
-  geom_line(aes(x = year, y = total_pounds), color = "steelblue") +  # plot total pounds on the y axis and year on the x axis
-  geom_line(aes(x = year, y = total_dollars ), color = "darkgreen") +   # plot second line with total dollars on the y axis and year on the x axis
-  scale_x_continuous(
-    breaks = seq(min(total_landings_year$year), max(total_landings_year$year), by = 10),  # set x axis breaks by 10 year increments
-    labels = scales::comma_format()  
-  ) +
-  scale_y_continuous(
-    name = "Total Pounds")  #add second y axis label +
-  labs(
-    title = "Total US Commercial Shark Landings Over Time",  # plot title
-    x = "Year",  # x-axis label
-    y = "Total Pounds",  # primary y-axis label
-    caption = "Source: NOAA Fisheries landings data"  # data source caption
-  ) +
-  theme_minimal()  # use minimal theme for cleaner look
-
-# alternative version with formatted y-axis and more y-axis breaks
 total_landings_year %>%
   ggplot() +
   geom_line(aes(x = year, y = total_pounds), color = "steelblue") + # plot total pounds on the y axis and year on the x axis
