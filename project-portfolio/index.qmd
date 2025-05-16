@@ -1,0 +1,31 @@
+---
+title: "Alyssa Walter"
+subtitle: "Marine Scientist"
+about:
+  template: jolla
+  image: boat_profile_pic.jpeg
+  links:
+    - icon: linkedin
+      text: LinkedIn
+      href: https://www.linkedin.com/in/alyssa-walter-a76677256 
+    - icon: github
+      text: Github
+      href: https://github.com/alyssawalter53
+---
+
+## Education
+
+**California State University, Monterey Bay** \| Seaside, CA\
+B.S Marine Science (2025) Minor in Statistics
+
+## Experience
+
+[California State University, Monterey Bay](https://jorgensenlabcsumb.weebly.com/our-team.html) \| Undergraduate Researcher \| November 2022-Present
+
+Channel Islands National Marine Sanctuary \| NOAA Hollings Research Intern \| May 2024-August 2024
+
+Channel Islands National Marine Sanctuary \| CSU Council on Ocean Affairs, Science & Technology Research Intern \| June 2023-August 2023
+
+This is a Quarto website.
+
+To learn more about Quarto websites visit <https://quarto.org/docs/websites>.

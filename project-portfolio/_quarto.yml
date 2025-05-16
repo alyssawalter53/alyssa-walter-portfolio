@@ -1,0 +1,25 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "Alyssa Walter's ePortfolio"
+  navbar:
+    left:
+      - href: index.qmd
+        text: "Home"
+      - href: about.qmd
+        text: "About Me"
+      - href: page_2_portfolio.qmd
+        text: "Research Project Process"
+      - text: "Portfolio Project"
+        href: portfolio-project/project-index.html
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+
+editor: visual
+
