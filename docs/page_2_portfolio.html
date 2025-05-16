@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Alyssa Walter’s ePortfolio - Project Process</title>
+<title>Alyssa Walter’s ePortfolio - Exploring Trends in Shark Landings by US Commercial Fisheries</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -117,9 +117,12 @@ ul.task-list li input[type="checkbox"] {
    
   <ul>
   <li><a href="#data-description" id="toc-data-description" class="nav-link active" data-scroll-target="#data-description">Data Description</a></li>
-  <li><a href="#data-visualization" id="toc-data-visualization" class="nav-link" data-scroll-target="#data-visualization">Data Visualization</a></li>
   <li><a href="#data-cleaning" id="toc-data-cleaning" class="nav-link" data-scroll-target="#data-cleaning">Data Cleaning</a></li>
-  <li><a href="#data-visualizations" id="toc-data-visualizations" class="nav-link" data-scroll-target="#data-visualizations">Data Visualizations</a></li>
+  <li><a href="#data-visualization-1" id="toc-data-visualization-1" class="nav-link" data-scroll-target="#data-visualization-1">Data Visualization 1</a></li>
+  <li><a href="#data-visualization-2" id="toc-data-visualization-2" class="nav-link" data-scroll-target="#data-visualization-2">Data Visualization 2</a></li>
+  <li><a href="#data-visualization-3" id="toc-data-visualization-3" class="nav-link" data-scroll-target="#data-visualization-3">Data Visualization 3</a></li>
+  <li><a href="#data-visualization-4" id="toc-data-visualization-4" class="nav-link" data-scroll-target="#data-visualization-4">Data Visualization 4</a></li>
+  <li><a href="#data-visualization-5" id="toc-data-visualization-5" class="nav-link" data-scroll-target="#data-visualization-5">Data Visualization 5</a></li>
   </ul>
 </nav>
     </div>
@@ -128,7 +131,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Project Process</h1>
+<h1 class="title">Exploring Trends in Shark Landings by US Commercial Fisheries</h1>
 </div>
 
 
@@ -147,62 +150,90 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="data-description" class="level1">
 <h1>Data Description</h1>
-<p><strong>Identify your data source.</strong><br>
-My data comes from the NOAA Fisheries Commercial Landings Database, which tracks reported commercial landings of fishes. I utilized their website to select data for 12 large pelagic shark species landed across the U.S.</p>
-<p>https://www.fisheries.noaa.gov/foss/f?p=215:200:1455472432287:::::</p>
-<p><strong>Describe your data, including variables and data types.</strong><br>
+<p><strong>Data Source.</strong><br>
+My data comes from the <a href="https://www.fisheries.noaa.gov/foss/f?p=215:200:1455472432287:::::">NOAA Fisheries Commercial Landings Database</a>, which tracks reported commercial landings of fishes. I utilized their website to select data for 12 large pelagic shark species landed across the U.S.</p>
+<p><strong>Variables and Data Types.</strong><br>
 My data contains commercial fisheries landings from 1915 to 2023, and provides insight into trends in shark landings by state. The dataset includes the following variables: - Year, year of the recorded landings. -State, U.S. state - NMFS Name, National Marine Fisheries Service common name of each species - Pounds and Metric Tons, weight of sharks landed - Dollars, market value of the landed sharks - Confidentiality, whether or not the data is confidential - Collection, whether it was commercially or recreational caught - Scientific Name, scientific name of each species - Tsn, Taxonomic Serial Numbers are a numeric code for the species - Source,original source of the data</p>
-<p><strong>Identify the research questions you want to answer.</strong></p>
+<p><strong>Research Questions</strong></p>
 <ol type="1">
+<li><p>Are there trends in the value of shark landings (in dollars) over time?</p></li>
 <li><p>Which shark species have the highest commercial landing weights (weight of all sharks cought) over time?</p></li>
-<li><p>How do the prominent species landed vary by state?</p></li>
-<li><p>Are there trends in the value of shark landings (in dollars) over time, for the shark species that can legally be kept and sold??</p></li>
+<li><p>How do the prominent species landed vary by US state and region?</p></li>
 <li><p>What data source (fisheries management organization) had the highest average shark landings in the last 5 years?</p></li>
 </ol>
 </section>
-<section id="data-visualization" class="level1">
-<h1>Data Visualization</h1>
-<p><strong>What do you want your final visualizations to look like?</strong><br>
-I want my final visualizations to clearly display trends in shark landings over time, differences among the US states, and the range of relationships between landing weight and commercial value for each species. I plan to create a line graph showing changes in landings (in pounds or metric tons) for all shark species over time. I will also create a bar chart that compares the total market value of shark landings by state. I will use a scatterplot to examine the relationship between the weight of landings and their dollar value.</p>
-<p><strong>What do you want to highlight on your final visualizations in order to answer your research questions? How do you plan to do that?</strong><br>
-I want to highlight the top shark species caught by weight and commercial value. I will use color coding to distinguish species and states and apply faceting to break up graphs by category where needed, inorder to include more varibles on each graph.</p>
-<p><strong>What is missing from your data or would need to change in your data to create these visualizations?</strong><br>
-Some aspects of the data may need to be adjusted before I can create these visualizations. I will need to group the data by species, year, and state in order to calculate some summary statistics. I will also need to check whether the State and NMFS Name variables are properly formatted for use as categorical variables.</p>
-</section>
 <section id="data-cleaning" class="level1">
 <h1>Data Cleaning</h1>
-<blockquote class="blockquote">
-<p><em>The answer to at least three of these questions should be “YES” for the data to meet the necessary standards to demonstrate your cleaning.</em></p>
-</blockquote>
-<p><strong>Do you need to reformat any variables into different types (e.g., factors, time, dates, strings)? Or remove information from variable values?</strong><br>
-Yes: I’ll convert Year to a date type, and State, NMFS Name, and Scientific Name into factors for plotting.</p>
-<p><strong>Do you need to deal with any missing data, especially missing data coded other than NA?</strong><br>
-Yes: There will be many blank cells in the value column, because some of these species are illegal to keep, and therefore have no true market value.</p>
-<p><strong>Do you need to filter your data? How?</strong><br>
-Yes: I will filter out uneccessary cells such as collection and tsn.</p>
-<p><strong>Do you need to create any new variables? What variables? How?</strong></p>
-<p>Yes: I may create a variable for “Region” by grouping States together.</p>
-<p><strong>Do you need to add new data (join) to your data? What data? How?</strong></p>
-<p>No: I should not have to perform any joins unless I decide to add the regions by joining another dataset.</p>
-<p><strong>Are there any variables you can exclude from your data?</strong></p>
-<p>Yes: Variables like Tsn, and Collection are not relevant to my project.</p>
-<p><strong>Do you need to pivot your data in any way? Why? How?</strong><br>
-Yes: I may pivot my data to combine species across years or states.</p>
-<p><strong>Do you need to summarize any of the variables? Which ones? How?</strong></p>
-<p>Yes: I plan to summarize total landings and total dollar value by species, state, and year using group_by and summarize.</p>
-<p><strong>What other aspects of your data need to be “fixed” in order to make your data visualizations?</strong><br>
-I may need to standardize state names and abbreviations, and handle zero values in landings and value.</p>
+<p>To get my dataset ready for visualizations, I first cleaned the variable names to make them easier to work with, and viewed a summary of the data to identify what needed cleaning. Then, I adjusted how certain pieces of information were stored: I made sure the year was treated as a number, removed symbols and commas from the weight and dollar columns so they could be calculated properly, and grouped together categories like state names and species names. I also removed rows that were marked “Confidential” since they didn’t include usable data, and deleted columns that weren’t relevant to my project. For any dollar or weight values that were recorded as zero, I marked them as missing so they wouldn’t affect the results. After this data cleaning, I saved the updated dataset and created a new dataset that showed the total pounds of sharks landed and total dollar value for each species, by state and year. I added a new column that grouped states into larger regions, such as “New England” or “Pacific Coast”—based on NOAA’s region definitions, and saved this dataset. I then created another dataset that totaled shark landings and dollar values by year alone. Finally, I created a wide-format version of the data, where each species had its own column, which may be helpful for certain and analysis.</p>
 <blockquote class="blockquote">
 <p>I used help from AI (ChatGPT) to create the regions dataframe, and to make sure the tideous process of spelling all state names and regions was done correctly.</p>
 </blockquote>
 </section>
-<section id="data-visualizations" class="level1">
-<h1>Data Visualizations</h1>
+<section id="data-visualization-1" class="level1">
+<h1>Data Visualization 1</h1>
+<p>This line graph shows total U.S. commercial shark landings from 1950 to 2020. The x-axis represents years in ten-year intervals, while ther are two lines on the y-axis. One line, in blue, shows the total pounds of sharks landed, steadily increasing through the 1980s and peaking in the early 1990s before declining. The other line, in dark green, shows the total dollar value of those landings, which generally follows the same trend as total catches. The y-axes on both sides of the plot display pounds and dollars, respectively. As we can see, the most commercial shark landings occurred around the late 1990s ( coinciding with the highest dollar value of landings), with a secondary peak during the 2010s. The number of shark landings must be monitored, as there is high variability in recent years.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div>
+<div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="page_2_portfolio_files/figure-html/first_plot_draft-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>Total pounds of U.S. commercial shark landings (blue), and total dollars (green) over time. Source: NOAA Fisheries.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="data-visualization-2" class="level1">
+<h1>Data Visualization 2</h1>
+<p>This line graph shows total commercial shark landings in pounds from 1950 to 2020 for the five most frequently caught species. Each species is a different color, layered to show how their relative contributions change over time. The predominantly caught shark over time is the Spiny Dogfish.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="page_2_portfolio_files/figure-html/top-species-over-time-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>Top 5 commercially landed shark species over time.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="data-visualization-3" class="level1">
+<h1>Data Visualization 3</h1>
+<p>This horizontal bar chart shows U.S. states on the vertical axis and total pounds of sharks landed on the horizontal axis. Each bar represents the shark species with the highest commercial landing weight in that state. Bars are color-coded by shark species, and the total pounds landed are labeled at the end of each bar. The chart highlights the variation in dominant caught shark species across states based on commercial landing weight in pounds. The predominantly caught shark across states is the Spiny Dogfish.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="page_2_portfolio_files/figure-html/top-species-per-state-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>Top shark species by total pounds landed per state by commercial fisheries.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="data-visualization-4" class="level1">
+<h1>Data Visualization 4</h1>
+<p>This heatmap shows the total shark landings in pounds by U.S. coastal region from 1950 to 2022. Each tile represents a year-region combination, shaded by total pounds landed. Lighter shades indicate higher landings. The Pacific coast shows the earliest landings, while New England region shows highest landings (in 1990).</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="page_2_portfolio_files/figure-html/Shark-Landings-by-Region-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>Heatmap displaying annual shark landings (in pounds) across U.S. fisheries regions from 1950 to 2022. Darker colors indicate higher landings.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="data-visualization-5" class="level1">
+<h1>Data Visualization 5</h1>
+<p>This bar chart displays the average shark landing weights, measured in pounds, from various fisheries management organizations over the most recent five years (2015-2020). The Atlantic Coastal Cooperative Statistics Program has the highest average landings by a large margin (just over 1,600,000 lbs). The Pacific Fisheries Information Network, Exceptions, and the Alaska Fisheries Information Network are significantly lower than the Atlantic Coastal Cooperative Statistics Program. The chart provides a clear comparison of how shark landings differ across these organizations.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="page_2_portfolio_files/figure-html/ave-landings-source-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>Bar chart of average shark landing weights (in pounds) by commercial fisheries over the last 5 years.</figcaption>
 </figure>
 </div>
 </div>

@@ -1,19 +1,17 @@
 ---
-title: "Project Process"
+title: "Exploring Trends in Shark Landings by US Commercial Fisheries"
 echo: FALSE
 messages: FALSE
 ---
 
 # Data Description
 
-**Identify your data source.**  
-My data comes from the NOAA Fisheries Commercial Landings Database, which tracks reported commercial landings of fishes. I utilized their website to select data for 12 large pelagic shark species landed across the U.S.
-
-https://www.fisheries.noaa.gov/foss/f?p=215:200:1455472432287:::::
+**Data Source.**  
+My data comes from the [NOAA Fisheries Commercial Landings Database](https://www.fisheries.noaa.gov/foss/f?p=215:200:1455472432287:::::), which tracks reported commercial landings of fishes. I utilized their website to select data for 12 large pelagic shark species landed across the U.S.
 
 
-**Describe your data, including variables and data types.**  
-My data contains commercial fisheries landings from 1915 to 2023, and provides insight into trends in shark landings  by state.
+**Variables and Data Types.**  
+My data contains commercial fisheries landings from 1915 to 2023, and provides insight into trends in shark landings by state.
 The dataset includes the following variables:
  - Year, year of the recorded landings.
  -State, U.S. state 
@@ -26,65 +24,20 @@ The dataset includes the following variables:
  - Tsn,  Taxonomic Serial Numbers are a numeric code for the species
  - Source,original source of the data
 
-**Identify the research questions you want to answer.**  
+**Research Questions**  
 
-1. Which shark species have the highest commercial landing weights (weight of all sharks cought) over time?
+1. Are there trends in the value of shark landings (in dollars) over time?
 
-2. How do the prominent species landed vary by state?
+2. Which shark species have the highest commercial landing weights (weight of all sharks cought) over time?
 
-3. Are there trends in the value of shark landings (in dollars) over time, for the shark species that can legally be kept and sold??
+3. How do the prominent species landed vary by US state and region?
 
 4. What data source (fisheries management organization) had the highest average shark landings in the last 5 years?
 
-# Data Visualization
-
-**What do you want your final visualizations to look like?**  
-I want my final visualizations to clearly display trends in shark landings over time, differences among the US states, and the range of relationships between landing weight and commercial value for each species. I plan to create a line graph showing changes in landings (in pounds or metric tons) for all shark species over time. I will also create a bar chart that compares the total market value of shark landings by state. I will use a scatterplot to examine the relationship between the weight of landings and their dollar value. 
-
-**What do you want to highlight on your final visualizations in order to answer your research questions? How do you plan to do that?**  
-I want to highlight the top shark species caught by weight and commercial value. I will use color coding to distinguish species and states and apply faceting to break up graphs by category where needed, inorder to include more varibles on each graph. 
-
-
-**What is missing from your data or would need to change in your data to create these visualizations?**  
-Some aspects of the data may need to be adjusted before I can create these visualizations. I will need to group the data by species, year, and state in order to calculate some summary statistics. I will also need to check whether the State and NMFS Name variables are properly formatted for use as categorical variables. 
-
 # Data Cleaning
 
-> _The answer to at least three of these questions should be “YES” for the data to meet the necessary standards to demonstrate your cleaning._
-
-**Do you need to reformat any variables into different types (e.g., factors, time, dates, strings)? Or remove information from variable values?**  
-Yes: I’ll convert Year to a date type, and State, NMFS Name, and Scientific Name into factors for plotting.
-
-**Do you need to deal with any missing data, especially missing data coded other than NA?**  
-Yes: There will be many blank cells in the value column, because some of these species are illegal to keep, and therefore have no true market value. 
-
-**Do you need to filter your data? How?**  
-Yes: I will filter out uneccessary cells such as collection and tsn.
-
-**Do you need to create any new variables? What variables? How?**  
-
-Yes: I may create a variable for “Region” by grouping  States together.
-
-
-**Do you need to add new data (join) to your data? What data? How?**  
-
-No: I should not have to perform any joins unless I decide to add the regions by joining another dataset. 
-
-
-**Are there any variables you can exclude from your data?**  
-
-Yes: Variables like Tsn, and Collection are not relevant to my project.
-
-**Do you need to pivot your data in any way? Why? How?**  
-Yes: I may pivot my data to combine species across years or states. 
-
-
-**Do you need to summarize any of the variables? Which ones? How?**  
-
-Yes: I plan to summarize total landings and total dollar value by species, state, and year using group_by and summarize.
-
-**What other aspects of your data need to be “fixed” in order to make your data visualizations?**  
-I may need to standardize state names and abbreviations, and handle zero values in landings and value.
+To get my dataset ready for visualizations, I first cleaned the variable names to make them easier to work with, and viewed a summary of the data to identify what needed cleaning.
+Then, I adjusted how certain pieces of information were stored: I made sure the year was treated as a number, removed symbols and commas from the weight and dollar columns so they could be calculated properly, and grouped together categories like state names and species names. I also removed rows that were marked “Confidential” since they didn’t include usable data, and deleted columns that weren’t relevant to my project. For any dollar or weight values that were recorded as zero, I marked them as missing so they wouldn’t affect the results. After this data cleaning, I saved the updated dataset and created a new dataset that showed the total pounds of sharks landed and total dollar value for each species, by state and year. I added a new column that grouped states into larger regions, such as “New England” or “Pacific Coast”—based on NOAA’s region definitions, and saved this dataset. I then created another dataset that totaled shark landings and dollar values by year alone. Finally, I created a wide-format version of the data, where each species had its own column, which may be helpful for certain and analysis. 
 
 ```{r packages, include=FALSE}
 library(tidyverse)
@@ -197,9 +150,15 @@ wide_landings_state <- landings_state %>%
 write.csv(wide_landings_state, file.path("data", "wide_landings_state.csv"))
 ```
 
-# Data Visualizations
+# Data Visualization 1
+
+This line graph shows total U.S. commercial shark landings from 1950 to 2020. The x-axis represents years in ten-year intervals, while ther are two lines on the y-axis. One line, in  blue, shows the total pounds of sharks landed, steadily increasing through the 1980s and peaking in the early 1990s before declining. The other line, in dark green, shows the total dollar value of those landings, which generally follows the same trend as total catches. The y-axes on both sides of the plot display pounds and dollars, respectively. As we can see, the most commercial shark landings occurred around the late 1990s ( coinciding with the highest dollar value of landings), with a secondary peak during the 2010s. The number of shark landings must be monitored, as there is high variability in recent years.
+
 
 ```{r first_plot_draft}
+#| fig-cap: "Total pounds of U.S. commercial shark landings (blue), and total dollars (green) over time. Source: NOAA Fisheries."
+#| fig-alt: "A line graph showing total U.S. commercial shark landings from 1950 to 2020. The x-axis represents years in ten-year intervals. One line, in  blue, shows the total pounds of sharks landed, steadily increasing through the 1980s and peaking in the early 1990s before declining. The other line, in dark green, shows the total dollar value of those landings, which generally follows the same trend as total catches. The y-axes on both sides of the plot display pounds and dollars, respectively."
+
 # line plot of total commercial shark landings and their value over time
 total_landings_year %>%
   ggplot() +
@@ -224,5 +183,131 @@ total_landings_year %>%
 
 ```
 
+# Data Visualization 2
 
+This line graph shows total commercial shark landings in pounds from 1950 to 2020 for the five most frequently caught species. Each species is a different color, layered to show how their relative contributions change over time. The predominantly caught shark over time is the Spiny Dogfish.
+
+```{r}
+#| label: top-species-over-time
+#| fig-cap: "Top 5 commercially landed shark species over time."
+#| fig-alt: "An area chart showing total commercial shark landings in pounds from 1950 to 2020 for the five most frequently caught species. Each species is a different color, layered to show how their relative contributions change over time. The predominantly caught shark over time is the Spiny Dogfish."
+
+landings_filtered %>%
+  group_by(nmfs_name) %>%
+  summarise(total_pounds_all = sum(pounds, na.rm = TRUE), .groups = "drop") %>%
+  arrange(desc(total_pounds_all)) %>%
+  slice_head(n = 5) %>%
+  pull(nmfs_name) -> top_species
+
+landings_filtered %>%
+  filter(nmfs_name %in% top_species) %>%
+  group_by(year, nmfs_name) %>%
+  summarise(total_pounds = sum(pounds, na.rm = TRUE), .groups = "drop") %>%
+  ggplot(aes(x = year, y = total_pounds, color = nmfs_name)) +
+  geom_line() +
+  labs(
+    title = "Top 5 Shark Species by Commercial Landing Weight Over Time",
+    x = "Year",
+    y = "Total Pounds",
+    color = "Species",
+    caption = "Source: NOAA Fisheries landings data"
+  ) +
+  theme_minimal()
+
+
+```
+
+# Data Visualization 3
+
+This horizontal bar chart shows U.S. states on the vertical axis and total pounds of sharks landed on the horizontal axis. Each bar represents the shark species with the highest commercial landing weight in that state. Bars are color-coded by shark species, and the total pounds landed are labeled at the end of each bar. The chart highlights the variation in dominant caught shark species across states based on commercial landing weight in pounds. The predominantly caught shark across states is the Spiny Dogfish.
+
+```{r}
+#| label: top-species-per-state
+#| fig-cap: "Top shark species by total pounds landed per state by commercial fisheries."
+#| fig-alt: "A horizontal bar chart showing U.S. states on the vertical axis and total pounds of sharks landed on the horizontal axis. Each bar represents the shark species with the highest commercial landing weight in that state. Bars are color-coded by shark species, and the total pounds landed are labeled at the end of each bar. The chart highlights the variation in dominant caught shark species across states based on commercial landing weight in pounds. The predominantly caught shark across states is the Spiny Dogfish, with Massachusets hving the highest total pounds landed."
+
+top_species_per_state <- landings_state %>%
+  group_by(state, nmfs_name) %>%
+  summarise(total_pounds = sum(total_pounds, na.rm = TRUE), .groups = "drop") %>%
+  group_by(state) %>%
+  slice_max(total_pounds, n = 1) %>%  # get the top species per state
+  ungroup()
+
+ggplot(top_species_per_state, aes(x = reorder(state, total_pounds), y = total_pounds, fill = nmfs_name)) +
+  geom_col(show.legend = TRUE) +
+  geom_text(aes(label = scales::comma(total_pounds)), 
+            hjust = -0.1, size = 3.5) +  # add pounds labels just outside the bars
+  coord_flip() +
+  labs(
+    title = "Top Shark Species by Total Pounds Landed per State",
+    x = "State",
+    y = "Total Pounds",
+    fill = "Shark Species"
+  ) +
+  theme_minimal() +
+  scale_y_continuous(expand = expansion(mult = c(0, 0.15)))  # add some space on the right for labels
+
+
+```
+# Data Visualization 4
+
+This heatmap shows the total shark landings in pounds by U.S. coastal region from 1950 to 2022. Each tile represents a year-region combination, shaded by total pounds landed. Lighter shades indicate higher landings. The Pacific coast shows the earliest landings, while New England region shows highest landings (in 1990).
+
+```{r}
+#| label: "Shark-Landings-by-Region"
+#| fig-cap: "Heatmap displaying annual shark landings (in pounds) across U.S. fisheries regions from 1950 to 2022. Darker colors indicate higher landings."
+#| fig-alt: "A heatmap showing total shark landings in pounds by U.S. coastal region from 1950 to 2022. Each tile represents a year-region combination, shaded by total pounds landed. Lighter shades indicate higher landings. The Pacific coast shows the earliest landings, while New England region shows highest landings (in 1990)."
+
+landings_state %>%
+  group_by(region, year) %>%
+  summarise(total_pounds = sum(total_pounds, na.rm = TRUE), .groups = "drop") %>%
+  ggplot(aes(x = year, y = fct_rev(region), fill = total_pounds)) +
+  geom_tile() +
+  scale_fill_viridis_c(labels = scales::comma) +
+  labs(
+    x = "Year",
+    y = "Region",
+    fill = "Total Pounds",
+    title = "Heatmap of Shark Landings by Region and Year"
+  ) +
+  theme_minimal(base_size = 13)
+
+
+```
+
+
+# Data Visualization 5
+
+This bar chart displays the average shark landing weights, measured in pounds, from various fisheries management organizations over the most recent five years (2015-2020). The Atlantic Coastal Cooperative Statistics Program has the highest average landings by a large margin (just over 1,600,000 lbs). The Pacific Fisheries Information Network, Exceptions, and the Alaska Fisheries Information Network are significantly lower than the Atlantic Coastal Cooperative Statistics Program. The chart provides a clear comparison of how shark landings differ across these organizations.
+
+```{r}
+#| label: ave-landings-source
+#| fig-cap: "Bar chart of average shark landing weights (in pounds) by commercial fisheries over the last 5 years."
+#| fig-alt: "This bar chart displays the average shark landing weights, measured in pounds, from various fisheries management organizations over the most recent five years (2015-2020). The Atlantic Coastal Cooperative Statistics Program has the highest average landings by a large margin (just over 1,600,000 lbs). The Pacific Fisheries Information Network, Exceptions, and the Alaska Fisheries Information Network are significantly lower than the Atlantic Coastal Cooperative Statistics Program. The chart provides a clear comparison of how shark landings differ across these organizations."
+
+# Filter for the last 5 years
+last_5_years <- landings_filtered %>%
+  filter(year >= max(year, na.rm = TRUE) - 4) %>%  # last 5 years including max year
+
+  group_by(source) %>%
+  summarize(
+    avg_pounds = mean(pounds, na.rm = TRUE),
+    .groups = "drop"
+  ) %>%
+  arrange(desc(avg_pounds))
+
+# Plot
+ggplot(last_5_years, aes(x = reorder(source, avg_pounds), y = avg_pounds, fill = source)) +
+  geom_col(show.legend = FALSE) +
+  coord_flip() +
+  labs(
+    title = "Average Shark Landings by Data Source in the Last 5 Years",
+    x = "Data Source (Fisheries Management Organization)",
+    y = "Average Pounds Landed",
+    caption = "Source: NOAA Fisheries landings data"
+  ) +
+  scale_y_continuous(labels = scales::comma) +
+  theme_minimal()
+
+```
 

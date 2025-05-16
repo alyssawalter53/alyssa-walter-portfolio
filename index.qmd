@@ -1,5 +1,6 @@
 ---
 title: "Alyssa Walter"
+subtitle: "Marine Scientist"
 about:
   template: jolla
   image: boat_profile_pic.jpeg
@@ -11,19 +12,18 @@ about:
       text: Github
       href: https://github.com/alyssawalter53
 ---
-Alyssa Walter is a senior at [California State University, Monterey Bay](https://jorgensenlabcsumb.weebly.com/our-team.html).
 
 ## Education
 
-California State University, Monterey Bay | Seaside, CA  
-
-B.S. in Marine Science 
-
+**California State University, Monterey Bay** | Seaside, CA  
+B.S Marine Science (2025)
 Minor in Statistics
+
+
 
 ## Experience
 
-California State University Monterey Bay | Undergraduate Researcher | November 2022-Present
+[California State University, Monterey Bay](https://jorgensenlabcsumb.weebly.com/our-team.html) | Undergraduate Researcher | November 2022-Present
 
 Channel Islands National Marine Sanctuary | NOAA Hollings Research Intern | May 2024-August 2024
 
